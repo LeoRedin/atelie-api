@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseConfig } from './configs/database.config';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -9,6 +10,9 @@ import { databaseConfig } from './configs/database.config';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+
+    // Modules
+    UserModule,
   ],
   controllers: [],
   providers: [],

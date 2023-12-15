@@ -1,26 +1,23 @@
-version: '3'
+version: '3.9'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  postgres:
+    container_name: postgres-container
+    image: postgres:alpine
     ports:
-      - '3000:3000'
-    depends_on:
-      - db
+      - 5432:5432
     environment:
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: your_username
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database_name
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'atelie'
+    volumes:
+      - atelie-postgres:/var/lib/postgresql/data
+    networks:
+      - postgres
 
-  db:
-    image: postgres:13
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: your_username
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database_name
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  atelie-postgres:
